@@ -5,24 +5,53 @@ var mongoose = require('mongoose'),
 
 module.exports.saveContact = function(savableContact, callback){
 
+    console.log('mongoose readyState is ' + mongoose.connection.readyState);// should be 1
+
+
     var checkContact = new contact(savableContact);
 
     checkContact.save(function (err) {
-        //console.log (err);
+        console.log (err);
         callback && callback(err, checkContact);
     });
 
-    console.log('mongoose readyState is ' + mongoose.connection.readyState);// should be 1
-    mongoose.connection.db.listCollections().toArray(function(err, names) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            names.forEach(function(e,i,a) {
-                mongoose.connection.db.dropCollection(e.name);
-                console.log("--->>", e.name);
-            });
-        }
-    });
+}
 
+module.exports.updateContact = function(savableContact, callback){
+
+
+
+}
+
+module.exports.deleteContact = function(savableContact, callback){
+
+
+}
+
+module.exports.getContact = function(callback) {
+
+    contact(contact.find({}, function (err, docs) {
+        //console.log (err);
+        callback && callback(err, docs);
+    }));
+
+}
+
+module.exports.findContactById = function(id){
+
+    var foundContact = contact(contact.find(id, function (err, docs) {
+        //console.log (err);
+        callback && callback(err, docs);
+    }));
+    console.log (foundContact);
+    // var foundContact;
+    // contacts.some(function(contact, index){
+    //     if(contact.id === id){
+    //         foundContact = {}
+    //         foundContact.contact = contact;
+    //         foundContact.index = index;
+    //         return foundContact;
+    //     }
+    // });
+    // return foundContact;
 }
