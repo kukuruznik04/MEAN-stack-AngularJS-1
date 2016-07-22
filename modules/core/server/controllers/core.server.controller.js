@@ -19,8 +19,7 @@ module.exports.getContacts = function (req, res) {
             res
                 .status(400)
                 .send({message: "Error: Internal error while getting data. Please try again later"})
-        } else
-        {
+        } else {
             res
                 .status(200)
                 .json(docs)
@@ -40,8 +39,7 @@ module.exports.createContact = function (req, res) {
             res
                 .status(400)
                 .send({message: "Error: Internal error while saving data. Please try again later"})
-        } else
-        {
+        } else {
             res
                 .status(200)
                 .json(contact)
@@ -54,7 +52,7 @@ module.exports.updateContact = function (req, res) {
     var contact = req.body,
         contactID = req.metadata.contactId;
 
-    var isUpdated = contactService.updateContact(contactID, contact, function(err, isUpdated){
+    contactService.updateContact(contactID, contact, function (err, isUpdated) {
         if (err) {
             res.status(400)
                 .send({message: "Error:: Unable to update contact. Please try again!!"});
@@ -63,26 +61,44 @@ module.exports.updateContact = function (req, res) {
                 .json(isUpdated);
         }
     });
-    
+
 }
 
 module.exports.deleteContact = function (req, res) {
-    var updatedContact = req.body,
-        contactID = req.metadata.contactId,
-        index = req.metadata.index;
 
-    var isDeleted = mockService.deleteContact(index);
-    if (!isDeleted) {
-        res.status(400)
-            .send({message: "Error:: Unable to delete contact. Please try again!!"});
-    } else {
-        res.status(200)
-            .json(isDeleted);
-    }
+
+    var updatedContact = req.body,
+        contactID = req.metadata.contactId;
+
+    var isDeleted = contactService.deleteContact(contactID, function (err) {
+        if (err) {
+            res.status(400)
+                .send({message: "Error:: Unable to delete contact. Please try again!!"});
+        } else {
+            res.status(200)
+                .json("Success");
+        }
+    });
+
+
+    // var updatedContact = req.body,
+    //     contactID = req.metadata.contactId,
+    //     index = req.metadata.index;
+    //
+    // var isDeleted = mockService.deleteContact(index);
+    // if (!isDeleted) {
+    //     res.status(400)
+    //         .send({message: "Error:: Unable to delete contact. Please try again!!"});
+    // } else {
+    //     res.status(200)
+    //         .json(isDeleted);
+    // }
 }
 
 
 module.exports.validateContactIdAndForward = function (req, res, next, id) {
+
+
     // var metadata = req.metadata = {};
     // metadata.contactId = id;
     // var foundContact = mockService.findContactById(id);
@@ -100,16 +116,28 @@ module.exports.validateContactIdAndForward = function (req, res, next, id) {
 
     var metadata = req.metadata = {};
     metadata.contactId = id;
-    var foundContact = contactService.findContactById(id);
-    if (foundContact) {
-        //metadata.model = foundContact.contact;
-        //metadata.index = foundContact.index;
-    }
-    //console.log(foundContact);
-    if (!foundContact) {
-        // res
-        //     .status(400)
-        //     .send({message: 'Error: Unable to find Contact with id ' + id});
-    }
+    var foundContact = contactService.findContactById(id, function (err, cont) {
+        if (err) {
+            res.status(400)
+                .send({message: "Error:: Unable to delete contact. Please try again!!"});
+        } else {
+            // res.status(200)
+            //     .json(cont);
+        }
+    });
+
+
+    // if (foundContact) {
+    //     //metadata.model = foundContact.contact;
+    //     //metadata.index = foundContact.index;
+    // }
+    // //console.log(foundContact);
+    // if (!foundContact) {
+    //     // res
+    //     //     .status(400)
+    //     //     .send({message: 'Error: Unable to find Contact with id ' + id});
+    // }
+
+
     next();
 }
