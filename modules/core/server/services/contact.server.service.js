@@ -17,9 +17,16 @@ module.exports.saveContact = function(savableContact, callback){
 
 }
 
-module.exports.updateContact = function(savableContact, callback){
+module.exports.updateContact = function(contactID, updatableContact, callback){
 
-
+    contact.update({_id:contactID}, updatableContact, null, function (err, docs) {
+        if(err){
+            callback(err);
+        } else {
+            console.log(contact);
+            callback(null, contact);
+        }
+    });
 
 }
 
@@ -39,11 +46,12 @@ module.exports.getContact = function(callback) {
 
 module.exports.findContactById = function(id){
 
-    var foundContact = contact(contact.find(id, function (err, docs) {
+    contact(contact.findOne({_id:id}, function (err, docs) {
         //console.log (err);
-        callback && callback(err, docs);
+        //callback && callback(err, docs);
+        return docs;
     }));
-    console.log (foundContact);
+    //return foundContact;
     // var foundContact;
     // contacts.some(function(contact, index){
     //     if(contact.id === id){

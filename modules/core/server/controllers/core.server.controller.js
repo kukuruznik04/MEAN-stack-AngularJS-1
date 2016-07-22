@@ -52,17 +52,18 @@ module.exports.createContact = function (req, res) {
 
 module.exports.updateContact = function (req, res) {
     var contact = req.body,
-        contactID = req.metadata.contactId,
-        index = req.metadata.index;
+        contactID = req.metadata.contactId;
 
-    var isUpdated = contactService.getContact(index, contact);
-    if (!isUpdated) {
-        res.status(400)
-            .send({message: "Error:: Unable to update contact. Please try again!!"});
-    } else {
-        res.status(200)
-            .json(isUpdated);
-    }
+    var isUpdated = contactService.updateContact(contactID, contact, function(err, isUpdated){
+        if (err) {
+            res.status(400)
+                .send({message: "Error:: Unable to update contact. Please try again!!"});
+        } else {
+            res.status(200)
+                .json(isUpdated);
+        }
+    });
+    
 }
 
 module.exports.deleteContact = function (req, res) {
@@ -95,18 +96,20 @@ module.exports.validateContactIdAndForward = function (req, res, next, id) {
     //         .send({message: 'Error: Unable to find Contact with id ' + id});
     // }
     // next();
+    //console.log("fucking here")
 
     var metadata = req.metadata = {};
     metadata.contactId = id;
     var foundContact = contactService.findContactById(id);
     if (foundContact) {
-        metadata.model = foundContact.contact;
-        metadata.index = foundContact.index;
+        //metadata.model = foundContact.contact;
+        //metadata.index = foundContact.index;
     }
-    if (!metadata.model) {
-        res
-            .status(400)
-            .send({message: 'Error: Unable to find Contact with id ' + id});
+    //console.log(foundContact);
+    if (!foundContact) {
+        // res
+        //     .status(400)
+        //     .send({message: 'Error: Unable to find Contact with id ' + id});
     }
     next();
 }
