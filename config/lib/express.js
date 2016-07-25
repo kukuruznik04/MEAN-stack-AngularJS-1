@@ -20,3 +20,10 @@ module.exports.initBodyParser = function (app) {
     // parse application/json
     app.use(bodyParser.json());
 }
+
+module.exports.initViewEngine = function (app){
+    app.engine('server.view.html', consolidate['swig']);
+
+    app.set('view engine', 'server.view.html');
+    app.set('views', './');
+}
