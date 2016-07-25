@@ -12,7 +12,7 @@ module.exports.loadRoutes = function (app) {
 
 module.exports.start = function () {
     var self = this;
-    console.log(self);
+
     mongoose.connect(function (db) {
 
         var app = express.init();

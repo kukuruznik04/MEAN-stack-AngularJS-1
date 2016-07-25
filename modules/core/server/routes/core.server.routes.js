@@ -2,7 +2,12 @@
 
 module.exports = function(app){
 
-    var controller = require('../controllers/core.server.controller');
+    var controller = require('../controllers/core.server.controller'),
+        mainController = require('../controllers/main.server.controller');
+
+
+
+
 
     // Contact collection and creation
     app
@@ -13,6 +18,7 @@ module.exports = function(app){
     // Update and delete operations
     app
         .route('/api/contact/:contactId')
+        //.get(controller.getContacts)
         .put(controller.updateContact)
         .delete(controller.deleteContact);
 
