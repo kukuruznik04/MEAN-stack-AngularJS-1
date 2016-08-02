@@ -1,0 +1,19 @@
+{
+  "name": "contacts-app",
+  "description": "Application",
+  "main": "server.js",
+  "authors": [
+    "Alisher Zhumakhmet <kukuruznik04@gmail.com>"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "nodejs",
+    "contacts"
+  ],
+  "homepage": "https://github.com/kukuruznik04/contacts-app",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "bootstrap": "3.3.6",
+    "angular-ui-router": "^0.3.1"
+  }
+}

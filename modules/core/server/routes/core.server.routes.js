@@ -2,12 +2,12 @@
 
 module.exports = function(app){
 
-    var controller = require('../controllers/core.server.controller'),
-        mainController = require('../controllers/main.server.controller');
+    var controller =  require('../controllers/core.server.controller.js'),
+        mainController = require('../controllers/main.server.controller.js');
 
-
-
-
+    app
+        .route('/')
+        .get(mainController.index);
 
     // Contact collection and creation
     app
