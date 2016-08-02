@@ -22,6 +22,6 @@ angular
                     "firstname": "Mike3456"
                 }
             ]
-
+        $scope.fields = $scope.contacts[0];
 
     })
