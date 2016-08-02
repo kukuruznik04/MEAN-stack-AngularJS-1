@@ -1,0 +1,14 @@
+<table class="table table-hover" ng-controller="ContactsController">
+    <thead>
+    <tr>
+        <th ng-repeat="(index, value) in fields">
+            <span ng-bind="index"></span>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="contact in contacts">
+        <td ng-repeat="(index, value) in contact"><span ng-bind="value"></span></td>
+    </tr>
+    </tbody>
+</table>
