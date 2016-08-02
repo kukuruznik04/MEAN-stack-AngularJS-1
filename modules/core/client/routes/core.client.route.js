@@ -9,6 +9,18 @@ angular
             .state('display', {
                 url: '/display',
                 templateUrl: 'modules/core/client/views/display.core.tpl.html'
+            })
+            .state('create', {
+                url: '/create',
+                templateUrl: 'modules/core/client/views/create.core.tpl.html'
+            })
+            .state('update', {
+                url: '/update',
+                templateUrl: 'modules/core/client/views/update.core.tpl.html'
+            })
+            .state('delete', {
+                url: '/delete',
+                templateUrl: 'modules/core/client/views/delete.core.tpl.html'
             });
 
     })

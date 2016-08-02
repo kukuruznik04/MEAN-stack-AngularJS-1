@@ -5,35 +5,12 @@
     <meta charset="UTF-8">
     <title>Contacts application</title>
     <link href="/public/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-<!--<style>-->
-    <!--ul {-->
-        <!--list-style-type: none;-->
-        <!--margin: 0;-->
-        <!--padding: 0;-->
-        <!--width: 200px;-->
-        <!--background-color: #f1f1f1;-->
-    <!--}-->
-
-    <!--li a {-->
-        <!--display: block;-->
-        <!--color: #000;-->
-        <!--padding: 8px 16px;-->
-        <!--text-decoration: none;-->
-    <!--}-->
-
-    <!--/* Change the link color on hover */-->
-    <!--li a:hover {-->
-        <!--background-color: #4CAF50;-->
-        <!--color: white;-->
-    <!--}-->
-<!--</style>-->
 </head>
 <body>
 
 <div ng-include="'modules/core/client/views/navigation.core.tpl.html'"></div>
-<div ng-include="'modules/core/client/views/display.core.tpl.html'"></div>
 
-<div ui-view="display"></div>
+<div ui-view></div>
 
 <!--Vendor libraries-->
 <script src="/public/lib/angular/angular.min.js"></script>
@@ -49,15 +26,6 @@
 <script src="/modules/core/client/routes/core.client.route.js"></script>
 
 
-
-<!--<ul>-->
-    <!--<li><a href="default.asp">Create Contact</a></li>-->
-    <!--<li><a href="news.asp">Show Contact</a></li>-->
-    <!--<li><a href="contact.asp">Delete Contact</a></li>-->
-    <!--<li><a href="about.asp">Show All Contacts</a></li>-->
-<!--</ul>-->
-
-
 <!--<input type="text" ng-model="name">  &lt;!&ndash; $rootScope &ndash;&gt;-->
 
 <!--<div class=".container-ctril1" ng-controller="ctrl1">-->
@@ -69,14 +37,6 @@
     <!--<input type="text" ng-model="name">-->
     <!--<p ng-bind="name"></p> &lt;!&ndash; Ctrl2 Scope&ndash;&gt;-->
 <!--</div>-->
-
-<div class="container" ng-controller="ContactsController">
-    <div ng-bind="name"></div>
-</div>
-
-
-
-
 <!--<script>-->
     <!--angular.module('contactsApp', ['ui.router'])-->
             <!--.controller('ctrl1', function () {-->

@@ -2,26 +2,45 @@
 
 angular
     .module('ContactsApp')
-    .controller('ContactsController', function ($scope) {
+    .controller('ContactsController', function ($scope, $http) {
         // $scope - dependency injection, controller and view talks through scope (2 way data binding)
 
-        $scope.contacts =
-            [
-                {
-                    "_id": "57928ef89d6a4b51398c8dfd",
-                    "__v": 0,
-                    "email": "a12dfghssaa@email.com",
-                    "lastname": "Bradley12fdg",
-                    "firstname": "Mike12sdfaa"
-                },
-                {
-                    "_id": "579290da9ee8a27239acea17",
-                    "__v": 0,
-                    "email": "a2343456@email.com",
-                    "lastname": "Bradley4567",
-                    "firstname": "Mike3456"
-                }
-            ]
-        $scope.fields = $scope.contacts[0];
+        $scope.contacts = [
+            {}
+        ];
+        $scope.fields = [];
+
+        $http({
+            method: 'GET',
+            url: '/api/contact'
+        }).then(function successCallback(response) {
+            $scope.contacts = response.data;
+            $scope.fields = Object.keys($scope.contacts[0] || []);
+        }, function errorCallback(response) {
+
+        });
+    })
+    .controller('SaveController', function ($scope, $http) {
+
+        var contacts = {};
+        $scope.save = function(user) {
+            contacts = {"email": $scope.user.email, "lastname": $scope.user.lastname, "firstname": $scope.user.firstname};
+            console.log(contacts);
+            $http({
+                method: 'POST',
+                url: '/api/contact'
+            }, contacts).then(function successCallback(response) {
+                $scope.result = "Success"
+            }, function errorCallback(response) {
+                $scope.result = "Fail"
+            });
+        }
+        //console.log(contacts);
+
+    })
+    .controller('UpdateController', function ($scope) {
+
+    })
+    .controller('DeleteController', function ($scope) {
 
     })

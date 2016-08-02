@@ -1,14 +1,28 @@
-<table class="table table-hover" ng-controller="ContactsController">
-    <thead>
-    <tr>
-        <th ng-repeat="(index, value) in fields">
-            <span ng-bind="index"></span>
-        </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="contact in contacts">
-        <td ng-repeat="(index, value) in contact"><span ng-bind="value"></span></td>
-    </tr>
-    </tbody>
-</table>
+<div ng-controller="SaveController">
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="email" class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" id="email" placeholder="Email" ng-model="user.email" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lastname" class="col-sm-2 control-label">Last  Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="lastname" placeholder="Last name" ng-model="user.lastname" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="firstname" class="col-sm-2 control-label">First  Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="firstname" placeholder="First name" ng-model="user.firstname" >
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default" ng-click="save(user)">Submit</button>
+            </div>
+        </div>
+    </form>
+    <span ng-bind="result"></span>
+</div>
