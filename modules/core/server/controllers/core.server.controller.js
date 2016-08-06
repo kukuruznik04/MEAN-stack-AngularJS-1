@@ -18,7 +18,8 @@ module.exports.getContacts = function (req, res) {
         if (err) {
             res
                 .status(400)
-                .send({message: "Error: Internal error while getting data. Please try again later"})
+                .send({message: "Error: Internal error while getting data. Please try again later"});
+            return;
         } else {
             res
                 .status(200)
@@ -38,7 +39,8 @@ module.exports.createContact = function (req, res) {
         if (err) {
             res
                 .status(400)
-                .send({message: "Error: Internal error while saving data. Please try again later"})
+                .send({message: "Error: Internal error while saving data. Please try again later"});
+            return;
         } else {
             res
                 .status(200)
@@ -56,6 +58,7 @@ module.exports.updateContact = function (req, res) {
         if (err) {
             res.status(400)
                 .send({message: "Error:: Unable to update contact. Please try again!!"});
+            return;
         } else {
             res.status(200)
                 .json(isUpdated);
@@ -74,6 +77,7 @@ module.exports.deleteContact = function (req, res) {
         if (err) {
             res.status(400)
                 .send({message: "Error:: Unable to delete contact. Please try again!!"});
+            return;
         } else {
             res.status(200)
                 .json("Success");
@@ -119,10 +123,12 @@ module.exports.validateContactIdAndForward = function (req, res, next, id) {
     var foundContact = contactService.findContactById(id, function (err, cont) {
         if (err) {
             res.status(400)
-                .send({message: "Error:: Unable to delete contact. Please try again!!"});
+                .send({message: "Error:: Unable to validate contact. Please try again!!"});
+            return;
         } else {
             // res.status(200)
             //     .json(cont);
+            next();
         }
     });
 
@@ -139,5 +145,5 @@ module.exports.validateContactIdAndForward = function (req, res, next, id) {
     // }
 
 
-    next();
+
 }

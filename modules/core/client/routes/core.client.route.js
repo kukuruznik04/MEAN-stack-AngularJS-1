@@ -21,6 +21,10 @@ angular
             .state('delete', {
                 url: '/delete',
                 templateUrl: 'modules/core/client/views/delete.core.tpl.html'
+            })
+            .state('table', {
+                url: '/table',
+                templateUrl: 'modules/core/client/views/table.core.tpl.html'
             });
 
     })

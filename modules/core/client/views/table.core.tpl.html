@@ -1,0 +1,53 @@
+<script language="javascript">
+var $TABLE = $('#table');
+var $BTN = $('#export-btn');
+var $EXPORT = $('#export');
+
+$('.table-add').click(function () {
+var $clone = $TABLE.find('tr.hide').clone(true).removeClass('hide table-line');
+$TABLE.find('table').append($clone);
+});
+
+</script>
+<div class="container" ng-controller="TableController">
+
+    <div id="table" class="table-editable">
+        <span class="table-add glyphicon glyphicon-plus"></span>
+        <table class="table">
+
+            <tr>
+                <th ng-repeat="field in fields">
+                    <span ng-bind="field"></span>
+                </th>
+            </tr>
+            <tr ng-repeat="contact in contacts">
+                <td contenteditable="true" ng-repeat="(index, value) in contact"><span ng-bind="value"></span></td>
+                <!--<td contenteditable="true">Stir Fry</td>-->
+                <!--<td contenteditable="true">stir-fry</td>-->
+                <td>
+                    <span class="table-remove glyphicon glyphicon-remove"></span>
+                    <span class="table-edit glyphicon glyphicon-pencil"></span>
+                </td>
+                <td>
+                    <span class="table-up glyphicon glyphicon-arrow-up"></span>
+                    <span class="table-down glyphicon glyphicon-arrow-down"></span>
+                </td>
+            </tr>
+            <!-- This is our clonable table line -->
+            <tr class="hide">
+                <td contenteditable="true">Untitled</td>
+                <td contenteditable="true">undefined</td>
+                <td>
+                    <span class="table-remove glyphicon glyphicon-remove"></span>
+                </td>
+                <td>
+                    <span class="table-up glyphicon glyphicon-arrow-up"></span>
+                    <span class="table-down glyphicon glyphicon-arrow-down"></span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <button id="export-btn" class="btn btn-primary">Export Data</button>
+    <p id="export"></p>
+</div>
