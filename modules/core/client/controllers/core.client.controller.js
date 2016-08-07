@@ -1,6 +1,5 @@
 'use strict';
 
-
 angular
     .module('ContactsApp')
     .controller('ContactsController', function ($scope, ContactService) {
@@ -8,13 +7,13 @@ angular
 
         var contactsPromise = ContactService.getContacts();
 
-        var successCallback = function(response){
+        var successCallback = function (response) {
             $scope.contacts = response;
             $scope.fields = Object.keys($scope.contacts[0] || []);
 
         }
 
-        var failureCallback = function(err){
+        var failureCallback = function (err) {
             console.log("Error while fetching contacts");
         }
 
@@ -22,7 +21,7 @@ angular
             .success(successCallback)
             .error(failureCallback);
 
-        
+
     })
     .controller('SaveController', function ($scope, SaveService) {
 
@@ -39,41 +38,55 @@ angular
         $scope.delete = DeleteService.deleteContacts;
 
     })
-    .controller('TableController',function ($scope, TableService){
+    .controller('LoginController', function ($scope, LoginService) {
+
+        // TODO: your code here
+        $scope.login = LoginService.loginContacts;
+
+    })
+    .controller('TableController', ['$scope', 'TableService', 'ContactFilter', function ($scope, TableService, ContactFilter) {
+
         var contactsPromise = TableService.getContacts();
 
-        var successCallback = function(response) {
+        var successCallback = function (response) {
 
 
-            var contacts = response;
+            var contacts = {};
 
-            contacts = contacts.map(function(contact){
-                if(contact && contact['_id']) delete contact['_id'];
-                if(contact && contact['__v']) delete contact['__v'];
-                return contact;
-            })
+            contacts = response;
 
 
             $scope.contacts = contacts;
-            $scope.fields = Object.keys($scope.contacts[0] || []);
+            $scope.fields = ContactFilter.getFields(Object.keys($scope.contacts[0] || []));
+            // $scope.fields = Object.keys($scope.contacts[0] || []);
 
         }
 
-        var failureCallback = function(err){
+        var failureCallback = function (err) {
             console.log("Error while fetching contacts");
         }
 
         contactsPromise
             .success(successCallback)
             .error(failureCallback);
-        
+
         $scope.save = TableService.saveContacts;
 
         $scope.update = TableService.updateContacts;
 
         $scope.delete = TableService.deleteContacts;
 
-    })
+    }])
+
+
+// contacts = contacts.map(function (contact) {
+//     if (contact && contact['_id']) {
+//         delete contact['_id'];
+//         delete contact['__v'];
+//     }
+//
+//     return contact;
+// })
 
 // Mine
 // angular

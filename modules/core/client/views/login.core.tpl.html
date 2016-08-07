@@ -1,6 +1,25 @@
-<ion-nav-bar class="bar-positive">
-    <ion-nav-back-button class="button-icon ion-arrow-left-c">
-    </ion-nav-back-button>
-</ion-nav-bar>
+<div ng-controller="LoginController">
+    <form class="form-horizontal">
 
-<ion-nav-view></ion-nav-view>
+        <div class="form-group">
+            <label for="username" class="col-sm-2 control-label">Username</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="username" placeholder="Username or email" ng-model="user.username">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-sm-2 control-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="password" placeholder="Password" ng-model="user.password">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <a ui-sref="table"><button type="submit" class="btn btn-default" ng-click="login(user)">Login</button></a>
+            </div>
+        </div>
+    </form>
+
+
+</div>

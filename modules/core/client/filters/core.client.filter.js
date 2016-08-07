@@ -1,3 +1,16 @@
-/**
- * Created by is_2160_ali on 8/7/16.
- */
+'use strict';
+
+angular
+    .module('ContactsApp')
+    .filter('ContactFilter', function () {
+        var _fields = function (fields) {
+            fields = fields || [];
+            if (fields)
+            for (var i = 0; i < fields.length; i++) {
+                fields[i].charAt(0).toUpperCase();
+            }
+            return fields;
+        }
+
+        return {getFields: _fields}
+    })

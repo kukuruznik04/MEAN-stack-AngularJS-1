@@ -1,53 +1,40 @@
-<script language="javascript">
-var $TABLE = $('#table');
-var $BTN = $('#export-btn');
-var $EXPORT = $('#export');
-
-$('.table-add').click(function () {
-var $clone = $TABLE.find('tr.hide').clone(true).removeClass('hide table-line');
-$TABLE.find('table').append($clone);
-});
-
-</script>
-<div class="container" ng-controller="TableController">
+<div class="container" ng-controller="TableController" >
 
     <div id="table" class="table-editable">
-        <span class="table-add glyphicon glyphicon-plus"></span>
-        <table class="table">
+        <table class="table" ng-init="newrow=false">
 
             <tr>
-                <th ng-repeat="field in fields">
+                <th ng-repeat="field in fields" ng-if="$index > 1">
                     <span ng-bind="field"></span>
                 </th>
+                <td></td>
+                <td><span class="table-add glyphicon glyphicon-plus" ng-click="newrow = true"></span></td>
             </tr>
-            <tr ng-repeat="contact in contacts">
-                <td contenteditable="true" ng-repeat="(index, value) in contact"><span ng-bind="value"></span></td>
-                <!--<td contenteditable="true">Stir Fry</td>-->
-                <!--<td contenteditable="true">stir-fry</td>-->
+            <tr ng-repeat="contact in contacts" ng-init="flag.$index = true">
+                <td ng-repeat="(index, value) in contact" ng-if="$index > 1">
+                    <span ng-hide="!flag.$index" ng-bind="value"></span>
+                    <input ng-hide="flag.$index"  type="text" value="{{value}}" ng-model="contact[index]">
+                </td>
                 <td>
-                    <span class="table-remove glyphicon glyphicon-remove"></span>
-                    <span class="table-edit glyphicon glyphicon-pencil"></span>
+                    <span ng-hide="!flag.$index" ng-click="delete(contact._id)"><span class="table-remove glyphicon glyphicon-remove"></span></span>
+                    <span ng-click="flag.$index = !flag.$index" ng-hide="!flag.$index"><span class="table-edit glyphicon glyphicon-pencil"></span></span>
+                    <span ng-hide="flag.$index" ng-click="update(contact,contact._id);flag.$index = !flag.$index"><span class="table-save glyphicon glyphicon-floppy-disk"></span></span>
                 </td>
                 <td>
                     <span class="table-up glyphicon glyphicon-arrow-up"></span>
                     <span class="table-down glyphicon glyphicon-arrow-down"></span>
                 </td>
             </tr>
-            <!-- This is our clonable table line -->
-            <tr class="hide">
-                <td contenteditable="true">Untitled</td>
-                <td contenteditable="true">undefined</td>
-                <td>
-                    <span class="table-remove glyphicon glyphicon-remove"></span>
+            <!-- TODO: Adding new row -->
+            <tr ng-hide="!newrow" ng-init="user={}">
+                <td ng-repeat="field in fields" ng-if="$index > 1">
+                    <input  type="text" ng-model="user[field]">
                 </td>
-                <td>
-                    <span class="table-up glyphicon glyphicon-arrow-up"></span>
-                    <span class="table-down glyphicon glyphicon-arrow-down"></span>
-                </td>
+                <td><span ng-click="save(user);newrow = !newrow"><span class="table-save glyphicon glyphicon-floppy-disk"></span></span></td>
             </tr>
         </table>
     </div>
 
-    <button id="export-btn" class="btn btn-primary">Export Data</button>
+    <button id="export-btn" class="btn btn-primary">Just Button</button>
     <p id="export"></p>
 </div>

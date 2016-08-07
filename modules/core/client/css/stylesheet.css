@@ -11,6 +11,15 @@
     cursor: pointer;
 }
 
+.table-save {
+    cursor: pointer;
+}
+
+.table-save:hover {
+    color: #994;
+    cursor: pointer;
+}
+
 .table-remove:hover {
     color: #f00;
 }

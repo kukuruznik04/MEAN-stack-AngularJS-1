@@ -25,6 +25,12 @@ angular
             .state('table', {
                 url: '/table',
                 templateUrl: 'modules/core/client/views/table.core.tpl.html'
+            })
+            .state('login', {
+                url: '/login',
+                templateUrl: 'modules/core/client/views/login.core.tpl.html'
             });
+
+        $urlRouterProvider.otherwise('/login');
 
     })

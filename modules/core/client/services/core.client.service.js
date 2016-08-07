@@ -25,6 +25,7 @@ angular
     .factory('UpdateService', function ($http) {
 
         var _update = function (user, id) {
+
             var promise = $http.put('/api/contact/' + id, user);
             return promise;
         };
@@ -42,6 +43,18 @@ angular
         return {deleteContacts: _delete}
 
     })
+    .factory('LoginService', ['$http', function ($http) {
+
+        var _login = function (user) {
+
+            // TODO: your code here
+            //var promise = $http.post('/api/contact', user);
+            return true;
+        };
+
+        return {loginContacts: _login}
+
+    }])
     .factory('TableService', function ($http) {
 
         var _contacts = function () {
