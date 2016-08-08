@@ -30,7 +30,15 @@ angular
             return promise;
         };
 
-        return {updateContacts: _update}
+        var _editContact = function (id) {
+            var promise = $http.get('/api/contact/' + id);
+            return promise;
+        };
+
+        return {
+            updateContacts: _update,
+            editContact: _editContact
+        }
 
     })
     .factory('DeleteService', function ($http) {
@@ -72,6 +80,7 @@ angular
             return promise;
         };
 
+
         var _delete = function (id) {
             var promise = $http.delete('/api/contact/' + id);
             return promise;
@@ -82,6 +91,7 @@ angular
             saveContacts: _save,
             updateContacts: _update,
             deleteContacts: _delete
+
         }
 
     });

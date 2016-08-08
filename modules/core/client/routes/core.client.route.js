@@ -15,8 +15,14 @@ angular
                 templateUrl: 'modules/core/client/views/create.core.tpl.html'
             })
             .state('update', {
-                url: '/update',
-                templateUrl: 'modules/core/client/views/update.core.tpl.html'
+                url: '/update/:contactId',
+                templateUrl: 'modules/core/client/views/update.core.tpl.html',
+                resolve: {
+                    contactId: function ($stateParams) {
+                        return $stateParams.contactId;
+                    }
+                },
+                controller: 'UpdateController'
             })
             .state('delete', {
                 url: '/delete',

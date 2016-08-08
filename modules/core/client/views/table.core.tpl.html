@@ -5,7 +5,7 @@
 
             <tr>
                 <th ng-repeat="field in fields" ng-if="$index > 1">
-                    <span ng-bind="field"></span>
+                    <span ng-bind="field | ContactFilter"></span>
                 </th>
                 <td></td>
                 <td><span class="table-add glyphicon glyphicon-plus" ng-click="newrow = true"></span></td>
@@ -21,7 +21,7 @@
                     <span ng-hide="flag.$index" ng-click="update(contact,contact._id);flag.$index = !flag.$index"><span class="table-save glyphicon glyphicon-floppy-disk"></span></span>
                 </td>
                 <td>
-                    <span class="table-up glyphicon glyphicon-arrow-up"></span>
+                    <span ng-click="editContact(contact)"><span class="table-up glyphicon glyphicon-arrow-up"></span></span>
                     <span class="table-down glyphicon glyphicon-arrow-down"></span>
                 </td>
             </tr>

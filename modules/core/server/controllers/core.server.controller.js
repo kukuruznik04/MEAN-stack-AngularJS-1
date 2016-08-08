@@ -147,3 +147,17 @@ module.exports.validateContactIdAndForward = function (req, res, next, id) {
 
 
 }
+
+module.exports.getContactById = function (req, res) {
+    var id = req.metadata.contactId;
+    contactService.findContactById2(id,function (err,foundContact) {
+        if (err) {
+            res.status(400)
+                .send("Error:: Unable to find contact. Please try again!!");
+            return;
+        } else {
+            res.status(200)
+                .json(foundContact);
+        }
+    });
+}

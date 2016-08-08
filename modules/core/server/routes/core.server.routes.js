@@ -18,7 +18,7 @@ module.exports = function(app){
     // Update and delete operations
     app
         .route('/api/contact/:contactId')
-        //.get(controller.getContacts)
+        .get(controller.getContactById)
         .put(controller.updateContact)
         .delete(controller.deleteContact);
 

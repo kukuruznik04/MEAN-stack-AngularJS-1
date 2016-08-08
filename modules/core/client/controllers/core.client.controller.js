@@ -28,11 +28,49 @@ angular
         $scope.save = SaveService.saveContacts;
 
     })
-    .controller('UpdateController', function ($scope, UpdateService) {
+    .controller('UpdateController', ['$scope', 'contactId', 'UpdateService', function ($scope, contactId, UpdateService) {
 
-        $scope.update = UpdateService.updateContacts;
+        var populateFields = function () {
 
-    })
+            var editPromise = UpdateService.editContact(contactId);
+
+
+            var successCallBack = function (response) {
+                $scope.contact = response;
+            }
+
+            var failureCallBack = function (err) {
+                $scope.message = err;
+            };
+
+            editPromise
+                .success(successCallBack)
+                .error(failureCallBack);
+
+
+        }
+        if (contactId)
+            populateFields();
+
+        $scope.update = function (user, id) {
+
+            var updatePromise = TableService.updateContacts(user, id);
+
+            var successCallBack = function (response) {
+                $scope.message = response;
+            };
+
+            var failureCallBack = function (err) {
+                $scope.message = err;
+            };
+            updatePromise
+                .success(successCallBack)
+                .error(failureCallBack);
+
+
+        };
+
+    }])
     .controller('DeleteController', function ($scope, DeleteService) {
 
         $scope.delete = DeleteService.deleteContacts;
@@ -44,37 +82,103 @@ angular
         $scope.login = LoginService.loginContacts;
 
     })
-    .controller('TableController', ['$scope', 'TableService', 'ContactFilter', function ($scope, TableService, ContactFilter) {
+    .controller('TableController', ['$scope', 'TableService', '$state', function ($scope, TableService, $state) {
 
-        var contactsPromise = TableService.getContacts();
+        // Display Table
 
-        var successCallback = function (response) {
+        var displayTable = function () {
+            var contactsPromise = TableService.getContacts();
 
-
-            var contacts = {};
-
-            contacts = response;
+            var successCallback = function (response) {
 
 
-            $scope.contacts = contacts;
-            $scope.fields = ContactFilter.getFields(Object.keys($scope.contacts[0] || []));
-            // $scope.fields = Object.keys($scope.contacts[0] || []);
+                var contacts = {};
 
+                contacts = response;
+
+
+                $scope.contacts = contacts;
+                $scope.fields = Object.keys($scope.contacts[0] || []);
+
+            }
+
+            var failureCallback = function (err) {
+                console.log("Error while fetching contacts");
+            }
+
+            contactsPromise
+                .success(successCallback)
+                .error(failureCallback);
+        }
+        displayTable();
+
+        // Save
+
+        $scope.save = function (user) {
+
+            var savePromise = TableService.saveContacts(user);
+
+            var successCallBack = function (response) {
+                displayTable();
+                $scope.message = response;
+            };
+
+            var failureCallBack = function (err) {
+                $scope.message = err;
+            };
+            savePromise
+                .success(successCallBack)
+                .error(failureCallBack);
+
+
+        };
+
+        // update contact
+
+        $scope.update = function (user, id) {
+
+            var updatePromise = TableService.updateContacts(user, id);
+
+            var successCallBack = function (response) {
+                displayTable();
+                $scope.message = response;
+            };
+
+            var failureCallBack = function (err) {
+                $scope.message = err;
+            };
+            updatePromise
+                .success(successCallBack)
+                .error(failureCallBack);
+
+
+        };
+
+        // Delete
+
+        $scope.delete = function (id) {
+
+            var deletePromise = TableService.deleteContacts(id);
+
+            var successCallBack = function (response) {
+                displayTable();
+                $scope.message = response;
+            };
+
+            var failureCallBack = function (err) {
+                $scope.message = err;
+            };
+            deletePromise
+                .success(successCallBack)
+                .error(failureCallBack);
+
+
+        };
+
+        $scope.editContact = function (contact) {
+            $state.go('update', {contactId: contact._id});
         }
 
-        var failureCallback = function (err) {
-            console.log("Error while fetching contacts");
-        }
-
-        contactsPromise
-            .success(successCallback)
-            .error(failureCallback);
-
-        $scope.save = TableService.saveContacts;
-
-        $scope.update = TableService.updateContacts;
-
-        $scope.delete = TableService.deleteContacts;
 
     }])
 

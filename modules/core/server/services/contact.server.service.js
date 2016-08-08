@@ -76,3 +76,9 @@ module.exports.findContactById = function (id, callback) {
     // });
     // return foundContact;
 }
+
+module.exports.findContactById2 = function(id,callback){
+    contact.findById(id, function(err, contact) {
+        callback(err,contact);
+    });
+}

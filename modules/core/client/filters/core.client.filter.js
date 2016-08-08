@@ -3,14 +3,9 @@
 angular
     .module('ContactsApp')
     .filter('ContactFilter', function () {
-        var _fields = function (fields) {
-            fields = fields || [];
-            if (fields)
-            for (var i = 0; i < fields.length; i++) {
-                fields[i].charAt(0).toUpperCase();
-            }
-            return fields;
-        }
 
-        return {getFields: _fields}
+        return function (input) {
+            input = input[0].toUpperCase() + input.slice(1);
+            return input;
+        };
     })
